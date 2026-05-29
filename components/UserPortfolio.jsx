@@ -7,18 +7,19 @@ import { useDemoAccount } from "@/lib/useDemoAccount";
 
 export function UserPortfolioHeader() {
   const { account, selectAccount, accounts } = useDemoAccount();
+  const accent = account.accent ?? "#f6c453";
 
   return (
-    <section className="glass mb-6 rounded-3xl p-4 sm:mb-8 sm:p-6">
+    <section className="glass mb-6 rounded-3xl p-4 sm:mb-8 sm:p-6" style={{ boxShadow: `0 24px 80px ${account.glow ?? "rgba(0,0,0,.38)"}` }}>
       <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
         <div className="mobile-safe flex items-start gap-3 sm:items-center sm:gap-4">
-          <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border border-aurum/40 bg-aurum/10 text-lg font-black text-aurum sm:h-16 sm:w-16 sm:text-xl">
+          <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border bg-white/10 text-lg font-black sm:h-16 sm:w-16 sm:text-xl" style={{ borderColor: `${accent}66`, color: accent }}>
             {account.avatar}
           </div>
           <div className="mobile-safe">
-            <p className="text-xs font-bold uppercase text-aurum sm:text-sm">account</p>
+            <p className="text-xs font-bold uppercase sm:text-sm" style={{ color: accent }}>{account.interfaceName ?? "account"}</p>
             <h2 className="mt-1 break-words text-xl font-black sm:text-2xl">{account.name}</h2>
-            <p className="mt-1 break-words text-sm leading-5 text-white/50">{account.email} · {account.plan}</p>
+            <p className="mt-1 break-words text-sm leading-5 text-white/50">{account.plan}</p>
           </div>
         </div>
         <div className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:grid-cols-[1fr_1fr_auto]">
@@ -49,17 +50,18 @@ export function UserPortfolioHeader() {
 export function PortfolioMetrics() {
   const { account } = useDemoAccount();
   const summary = getAccountSummary(account);
+  const accent = account.accent ?? "#f6c453";
 
   return (
     <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
       <div className="glass mobile-safe rounded-2xl p-4 sm:p-5">
         <p className="text-sm text-white/55">Portfolio balance</p>
-        <p className="mt-2 break-words text-[clamp(1.65rem,8vw,1.875rem)] font-black">{currency(summary.totalBalance)}</p>
+        <p className="mt-2 break-words text-[clamp(1.65rem,8vw,1.875rem)] font-black" style={{ color: accent }}>{currency(summary.totalBalance)}</p>
         <p className="mt-3 text-sm text-white/45">Crypto holdings + cash balance</p>
       </div>
       <div className="glass mobile-safe rounded-2xl p-4 sm:p-5">
         <p className="text-sm text-white/55">Crypto market value</p>
-        <p className="mt-2 break-words text-[clamp(1.65rem,8vw,1.875rem)] font-black">{currency(summary.cryptoValue)}</p>
+        <p className="mt-2 break-words text-[clamp(1.65rem,8vw,1.875rem)] font-black" style={{ color: accent }}>{currency(summary.cryptoValue)}</p>
         <p className="mt-3 text-sm text-white/45">BTC, ETH and USDT only</p>
       </div>
       <div className="glass mobile-safe rounded-2xl p-4 sm:p-5">

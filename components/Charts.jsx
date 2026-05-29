@@ -1,11 +1,13 @@
 "use client";
 
 import { Area, AreaChart, Bar, BarChart, Cell, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { allocationData, performanceData } from "@/lib/data";
+import { defaultAccount, getAllocationData, getPerformanceData } from "@/lib/data";
 
 const colors = ["#f6c453", "#9d4edd", "#51f7ff"];
 
-export function PerformanceChart() {
+export function PerformanceChart({ account = defaultAccount }) {
+  const performanceData = getPerformanceData(account);
+
   return (
     <div className="h-64 w-full min-w-0 sm:h-80">
       <ResponsiveContainer width="100%" height="100%">
@@ -26,7 +28,9 @@ export function PerformanceChart() {
   );
 }
 
-export function AllocationChart() {
+export function AllocationChart({ account = defaultAccount }) {
+  const allocationData = getAllocationData(account);
+
   return (
     <div className="h-56 w-full min-w-0 sm:h-64">
       <ResponsiveContainer width="100%" height="100%">
@@ -41,7 +45,9 @@ export function AllocationChart() {
   );
 }
 
-export function YieldChart() {
+export function YieldChart({ account = defaultAccount }) {
+  const performanceData = getPerformanceData(account);
+
   return (
     <div className="h-56 w-full min-w-0 sm:h-64">
       <ResponsiveContainer width="100%" height="100%">

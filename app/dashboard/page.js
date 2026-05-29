@@ -14,6 +14,7 @@ import { useDemoAccount } from "@/lib/useDemoAccount";
 export default function DashboardPage() {
   const router = useRouter();
   const { account, isAuthenticated, loaded } = useDemoAccount();
+  const accent = account.accent ?? "#f6c453";
 
   useEffect(() => {
     if (loaded && !isAuthenticated) {
@@ -30,7 +31,7 @@ export default function DashboardPage() {
       <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
         <MotionShell className="mb-6 flex flex-col justify-between gap-5 sm:mb-8 lg:flex-row lg:items-end">
           <div className="mobile-safe">
-            <p className="text-sm font-bold uppercase text-aurum">crypto dashboard</p>
+            <p className="text-sm font-bold uppercase" style={{ color: accent }}>{account.interfaceName ?? "crypto dashboard"}</p>
             <h1 className="mt-3 text-[clamp(2rem,10vw,3rem)] font-black leading-tight">Investment Portfolio</h1>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-white/55 sm:text-base">Track BTC, ETH and USDT balances, profit/loss analytics, and transaction history from your investor dashboard.</p>
           </div>
@@ -69,12 +70,12 @@ export default function DashboardPage() {
               </div>
               <BarChart3 className="shrink-0 text-aurum" />
             </div>
-            <PerformanceChart />
+            <PerformanceChart account={account} />
           </section>
           <section className="glass rounded-3xl p-5 sm:p-6">
             <h2 className="text-xl font-black">Asset allocation</h2>
             <p className="mt-1 text-sm text-white/45">BTC, ETH and USDT allocation</p>
-            <AllocationChart />
+            <AllocationChart account={account} />
             <div className="grid gap-3">
               {account.holdings.map((asset) => (
                 <div key={asset.symbol} className="flex items-center justify-between rounded-xl bg-white/5 px-4 py-3 text-sm">
@@ -89,7 +90,7 @@ export default function DashboardPage() {
         <div className="mt-6 grid gap-6 xl:grid-cols-[.9fr_1.1fr]">
           <section className="glass rounded-3xl p-5 sm:p-6">
             <h2 className="text-xl font-black">Monthly P/L bars</h2>
-            <YieldChart />
+            <YieldChart account={account} />
           </section>
           <section className="glass rounded-3xl p-5 sm:p-6">
             <div className="mb-5 flex items-start justify-between gap-3">
